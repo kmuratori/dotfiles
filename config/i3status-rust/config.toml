@@ -1,0 +1,120 @@
+[icons]
+icons = "material-nf"
+
+[theme]
+theme = "plain"
+[theme.overrides]
+idle_bg = "#1f1f1f"
+idle_fg = "#ffffff"
+good_bg = "#1f1f1f"
+warning_bg = "#664317"
+critical_bg = "#664317"
+separator = " "
+
+# [[block]]
+# block = "custom"
+# command = "echo Apps"
+# [[block.click]]
+# button = "left"
+# cmd = "rofi -show drun"
+
+[[block]]
+block = "custom"
+command = "~/.config/i3status-rust/music.sh"
+json = true
+signal = 10
+interval = 1
+hide_when_empty = true
+[block.theme_overrides]
+good_fg = "#2FBF71"
+warning_fg = "#D0A050"
+idle_fg = "#888888"
+[[block.click]]
+button = "left"
+cmd = "mpc toggle"
+update = true
+[[block.click]]
+button = "middle"
+cmd = "wmctrl -x -a ncmpcpp"
+
+[[block]]
+block = "disk_space"
+path = "/home"
+info_type = "available"
+format = " $icon $available "
+
+[[block]]
+block = "cpu"
+format = " $icon $utilization "
+interval = 1
+[[block.click]]
+button = "left"
+cmd = "alacritty --class _htop -e htop"
+
+[[block]]
+block = "memory"
+format = " $icon $mem_used.eng(w:3) "
+[[block.click]]
+button = "left"
+cmd = "alacritty --class _htop -e htop"
+
+[[block]]
+block = "net"
+format = " $icon {$ssid|Wired} "
+[[block.click]]
+button = "left"
+cmd = "cmst"
+
+[[block]]
+block = "custom"
+command = "~/.config/i3status-rust/sound.sh"
+signal = 1
+interval = 5
+[[block.click]]
+button = "left"
+cmd = "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+update = true
+[[block.click]]
+button = "right"
+cmd = "pavucontrol"
+[[block.click]]
+button = "wheel_up"
+cmd = "pactl set-sink-volume @DEFAULT_SINK@ +5%"
+update = true
+[[block.click]]
+button = "wheel_down"
+cmd = "pactl set-sink-volume @DEFAULT_SINK@ -5%"
+update = true
+
+[[block]]
+block = "battery"
+format = " $icon $percentage "
+missing_format = ""
+
+[[block]]
+block = "time"
+interval = 60
+format = " $timestamp.datetime(f:'%a %d %b %H:%M') "
+[[block.click]]
+button = "left"
+# cmd = "alacritty -T calender -e bash -c 'cal -m && read'"
+cmd = "~/.config/i3status-rust/spawn_cal.sh"
+
+# [[block]]
+# block = "menu"
+# text = "Power"
+# [[block.items]]
+# display = "Lock"
+# cmd = "i3lock"
+# [[block.items]]
+# display = "Log out"
+# cmd = "i3-msg exit"
+# confirm_msg = "Log out?"
+# [[block.items]]
+# display = "Reboot"
+# cmd = "loginctl reboot"
+# confirm_msg = "Reboot?"
+# [[block.items]]
+# display = "Shut down"
+# cmd = "loginctl poweroff"
+# confirm_msg = "Shut down?"

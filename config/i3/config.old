@@ -1,0 +1,219 @@
+# dark-beach i3 config — Pastel Ghost ~ Dark Beach
+# Accent: #723EC3 | Void Linux
+
+# Colors — no inline comments on set lines, i3 parses the whole line
+set $bg       "#0a0810"
+set $bg2      "#110d1a"
+set $surface  "#1a1226"
+set $overlay  "#261a36"
+set $muted    "#3d2b56"
+set $accent   "#723EC3"
+set $accent2  "#9D6EE8"
+set $accent3  "#4A2380"
+set $lavender "#9d80c8"
+set $fg       "#ede9f8"
+set $fg2      "#a89bc5"
+set $blue     "#4a8fd4"
+set $urgent   "#e05c7a"
+
+set $mod Mod4
+
+# Font — same as original
+font pango:Bitstream Vera Sans Mono 14
+
+# Autostart
+exec --no-startup-id dex --autostart --environment i3
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id pgrep -x pipewire >/dev/null || pipewire &
+exec --no-startup-id xrdb -merge ~/.config/X11/Xresources
+exec --no-startup-id dunst
+exec --no-startup-id ~/.fehbg
+exec --no-startup-id picom --config ~/.config/picom/picom.conf
+exec --no-startup-id mpd
+exec --no-startup-id sxhkd
+exec --no-startup-id syncthing
+exec --no-startup-id /home/karim/.local/bin/lifeops serve > /home/karim/.cache/lifeops.log
+
+# Volume
+bindsym XF86AudioRaiseVolume  exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@      +5% && pkill -RTMIN+1 i3blocks
+bindsym XF86AudioLowerVolume  exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@      -5% && pkill -RTMIN+1 i3blocks
+bindsym XF86AudioMute         exec --no-startup-id pactl set-sink-mute   @DEFAULT_SINK@   toggle && pkill -RTMIN+1 i3blocks
+bindsym XF86AudioMicMute      exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && pkill -RTMIN+1 i3blocks
+
+# Brightness + extras
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym XF86MonBrightnessUp   exec brightnessctl set 5%+
+bindsym XF86Explorer          exec pcmanfm
+bindsym Print                 exec flameshot gui
+
+# MPD controls (sxhkd handles the main ones; these are fallback)
+bindsym $mod+F9  exec mpc toggle && pkill -RTMIN+10 i3blocks
+bindsym $mod+F10 exec mpc prev   && pkill -RTMIN+10 i3blocks
+bindsym $mod+F11 exec mpc next   && pkill -RTMIN+10 i3blocks
+bindsym $mod+F12 exec mpc stop   && pkill -RTMIN+10 i3blocks
+
+# Applications — identical to your original, plus theme switcher
+bindsym $mod+Shift+Return exec i3-sensible-terminal
+bindsym $mod+Shift+w      exec nsxiv -bft $WALLPAPERS_PATH
+bindsym $mod+Shift+p      exec rofi -show window
+bindsym $mod+Shift+b      bar mode toggle
+bindsym $mod+Escape       exec ~/.local/bin/scripts/key_logout.sh
+bindsym $mod+w            exec qutebrowser
+bindsym $mod+b            exec boomer
+bindsym $mod+p            exec rofi -show drun
+bindsym $mod+m            exec ~/.local/bin/scripts/menu.sh
+bindsym $mod+n            exec ~/.local/bin/scripts/open_notes
+bindsym $mod+Shift+t      exec ~/.config/i3/scripts/theme-switcher.sh
+bindsym $mod+g            exec chromium
+
+# Gaps
+gaps inner 3
+gaps outer 0
+smart_gaps on
+smart_borders on
+
+# Window rules
+for_window [class="Alacritty" title="calender"] floating enable
+for_window [class="Alacritty" title="calender"] move position mouse
+for_window [class="Alacritty" title="calender"] border pixel 2
+for_window [class="ncmpcpp-float"]              floating enable
+for_window [class="ncmpcpp-float"]              resize set 900 500
+for_window [class="ncmpcpp-float"]              move position center
+for_window [class="ncmpcpp-float"]              border pixel 2
+for_window [class="cava-float"]                 floating enable
+for_window [class="cava-float"]                 resize set 700 200
+for_window [class="cava-float"]                 move position center
+for_window [class="cava-float"]                 border pixel 1
+for_window [window_role="pop-up"]               floating enable
+for_window [title="webcam"]                     floating enable
+for_window [class="Pavucontrol"]                floating enable
+for_window [class="sowon"]                      floating enable
+
+floating_modifier $mod
+tiling_drag modifier titlebar
+
+# Kill
+bindsym $mod+Shift+c kill
+
+# Launcher
+bindsym $mod+d exec --no-startup-id dmenu_run
+
+# Focus — EXACT same layout as your original
+bindsym $mod+j         focus left
+bindsym $mod+k         focus down
+bindsym $mod+l         focus up
+bindsym $mod+semicolon focus right
+
+bindsym $mod+Left  focus left
+bindsym $mod+Down  focus down
+bindsym $mod+Up    focus up
+bindsym $mod+Right focus right
+
+# Move — EXACT same layout as your original (Shift+j/k/l/semicolon)
+bindsym $mod+Shift+j         move left
+bindsym $mod+Shift+k         move down
+bindsym $mod+Shift+l         move up
+bindsym $mod+Shift+semicolon move right
+
+# Layout
+bindsym $mod+h split h
+bindsym $mod+v split v
+bindsym $mod+f fullscreen toggle
+bindsym $mod+s layout stacking
+bindsym $mod+t layout tabbed
+bindsym $mod+e layout toggle split
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space       focus mode_toggle
+bindsym $mod+a           focus parent
+
+# Reload / restart / exit
+bindsym $mod+Shift+r reload
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# Workspaces
+set $ws1  "1:一"
+set $ws2  "2:二"
+set $ws3  "3:三"
+set $ws4  "4:四"
+set $ws5  "5:五"
+set $ws6  "6:六"
+set $ws7  "7:七"
+set $ws8  "8:八"
+set $ws9  "9:九"
+set $ws10 "10:十"
+
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# Resize mode
+mode "resize" {
+    bindsym j         resize shrink width  10 px or 10 ppt
+    bindsym k         resize grow   height 10 px or 10 ppt
+    bindsym l         resize shrink height 10 px or 10 ppt
+    bindsym semicolon resize grow   width  10 px or 10 ppt
+
+    bindsym Left  resize shrink width  10 px or 10 ppt
+    bindsym Down  resize grow   height 10 px or 10 ppt
+    bindsym Up    resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow   width  10 px or 10 ppt
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+r mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# Borders — CHANGED: no borders for focused tiling windows
+default_border pixel 0
+default_floating_border pixel 1
+for_window [floating] border pixel 1
+for_window [tiling]   border pixel 0
+
+# Window colours — CHANGED: focused = lavender bg, dark purple text ($accent3)
+client.focused          $lavender $lavender $accent3 $lavender $lavender
+client.focused_inactive $muted    $bg2      $fg2     $overlay  $muted
+client.unfocused        $bg2      $bg       $fg2     $bg2      $bg2
+client.urgent           $urgent   $urgent   $bg2     $urgent   $urgent
+client.placeholder      $bg       $bg       $fg2     $bg       $bg
+
+# Bar
+bar {
+    status_command          i3blocks -c ~/.config/i3blocks/config
+    position                top
+    font                    pango:Bitstream Vera Sans Mono 14
+    separator_symbol        " "
+    strip_workspace_numbers yes
+    mode                    dock
+
+    colors {
+        background  "#0a0810"
+        statusline  "#ede9f8"
+        separator   "#3d2b56"
+
+        # CHANGED: focused workspace = lavender bg, dark purple text
+        focused_workspace  "#9d80c8" "#9d80c8" "#4A2380"
+        active_workspace   "#4A2380" "#110d1a" "#9d80c8"
+        inactive_workspace $bg       $bg       $fg
+        urgent_workspace   "#e05c7a" "#1a1226" "#ede9f8"
+        binding_mode       "#9D6EE8" "#1a1226" "#ede9f8"
+    }
+}

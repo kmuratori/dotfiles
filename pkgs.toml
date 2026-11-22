@@ -1,0 +1,37 @@
+[common]
+packages = [
+    "git",
+    "curl",
+    "jq",
+    "mpc",
+    "mpd",
+    "rofi",
+    "dunst",
+    "picom",
+    "i3",
+    "flameshot",
+    "alacritty",
+    "dmenu",
+    "helix",
+    "nsxiv",
+    "sxhkd",
+    "zathura",
+]
+
+[pacman]
+packages = ["i3status-rust"]
+
+[xbps]
+packages = ["i3status-rust"]
+
+[apt]
+packages = []
+
+[dnf]
+packages = []
+
+[apk]
+packages = []
+
+[zypper]
+packages = []

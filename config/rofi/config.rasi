@@ -1,0 +1,134 @@
+/* config.rasi — main launcher */
+
+configuration {
+    modi:                "drun,run,window";
+    show-icons:          true;
+    display-drun:        "Apps";
+    display-run:         "Run";
+    display-window:      "Windows";
+    drun-display-format: "{name}";
+    icon-theme:          "Papirus-Dark";
+    font:                "Bitstream Vera Sans Mono 11";
+}
+
+* {
+    bg:       #1f1f1f;
+    surface:  #373737;
+    border:   #454545;
+    focus:    #777777;
+    muted:    #888888;
+    fg:       #ffffff;
+    black:    #000000;
+    warn-bg:  #664317;
+    good:     #2FBF71;
+    warn:     #D0A050;
+    critical: #C94F4F;
+
+    background-color: transparent;
+    text-color:       @fg;
+    border-color:     @border;
+    spacing:          0;
+}
+
+window {
+    width:            520px;
+    background-color: @bg;
+    border:           1px solid;
+    border-color:     @border;
+}
+
+mainbox {
+    padding:  12px;
+    spacing:  10px;
+    children: [ inputbar, message, listview ];
+}
+
+inputbar {
+    background-color: @surface;
+    border:           1px solid;
+    border-color:     @border;
+    padding:          10px 14px;
+    spacing:          10px;
+    children:         [ prompt, entry ];
+}
+
+prompt {
+    text-color: @muted;
+}
+
+entry {
+    placeholder:       "Search…";
+    placeholder-color: @muted;
+    cursor:            text;
+}
+
+listview {
+    columns:      1;
+    lines:        8;
+    fixed-height: true;
+    scrollbar:    false;
+    cycle:        true;
+    spacing:      4px;
+}
+
+element {
+    padding:       9px 12px;
+    spacing:       12px;
+    text-color:    @muted;
+    children:      [ element-icon, element-text ];
+}
+
+element normal.normal,
+element alternate.normal {
+    background-color: transparent;
+    text-color:       @muted;
+}
+
+element normal.active,
+element alternate.active {
+    background-color: transparent;
+    text-color:       @fg;
+}
+
+element normal.urgent,
+element alternate.urgent {
+    background-color: transparent;
+    text-color:       @critical;
+}
+
+element selected.normal {
+    background-color: @surface;
+    text-color:       @fg;
+}
+
+element selected.active {
+    background-color: @surface;
+    text-color:       @fg;
+}
+
+element selected.urgent {
+    background-color: @surface;
+    text-color:       @critical;
+}
+
+element-icon {
+    size:           1.4em;
+    vertical-align: 0.5;
+}
+
+element-text {
+    text-color:     inherit;
+    vertical-align: 0.5;
+    highlight:      bold underline #ffffff;
+}
+
+message {
+    background-color: @surface;
+    border:           1px solid;
+    border-color:     @border;
+    padding:          8px 12px;
+}
+
+textbox {
+    text-color: @muted;
+}

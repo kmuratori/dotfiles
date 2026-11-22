@@ -1,0 +1,22 @@
+alias \
+\
+c="clear" \
+v="nvim" \
+f="fff" \
+l="ls -lh --color=auto --group-directories-first" \
+ls="ls -h --color=auto --group-directories-first" \
+la="ls -lah --color=auto --group-directories-first" \
+grep="grep --color=auto" \
+shell="exec $SHELL -l" \
+fk="sudo !!" \
+mv="mv -v" \
+rm="rm -v" \
+mkdir="mkdir -v" \
+df="df -h" \
+du="du -h -d 1" \
+k="killall" \
+bc="bc -q" \
+p="ps aux | grep $1" \
+xi="sudo xbps-install" \
+xr="sudo xbps-remove" \
+xq="xbps-query"

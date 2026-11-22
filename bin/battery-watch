@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+set -u
+
+BAT_PATH="${BAT_PATH:-/sys/class/power_supply}"
+LOW=20
+CRITICAL=10
+ACT=5
+INTERVAL="${INTERVAL:-30}"
+SUSPEND_CMD="${SUSPEND_CMD:-}"
+RUNTIME="${XDG_RUNTIME_DIR:-/tmp}"
+STATE_FILE="$RUNTIME/battery-watch.state"
+LOCK_FILE="$RUNTIME/battery-watch.lock"
+
+exec 9>"$LOCK_FILE"
+flock -n 9 || exit 0
+
+bats=()
+for d in "$BAT_PATH"/BAT*; do
+    [ -r "$d/capacity" ] && [ -r "$d/status" ] && bats+=("$d")
+done
+[ "${#bats[@]}" -eq 0 ] && exit 0
+
+if [ -n "$SUSPEND_CMD" ]; then M="$SUSPEND_CMD"
+elif command -v loginctl >/dev/null; then M=loginctl
+elif [ -d /run/systemd/system ] && command -v systemctl >/dev/null; then M=systemctl
+elif command -v zzz >/dev/null && { command -v doas >/dev/null || command -v sudo >/dev/null; }; then M=zzz
+elif command -v pm-suspend >/dev/null && { command -v doas >/dev/null || command -v sudo >/dev/null; }; then M=pm-suspend
+else M=none; fi
+echo "battery-watch: suspend method: $M" >&2
+
+do_suspend() {
+    if [ -n "$SUSPEND_CMD" ]; then $SUSPEND_CMD && return 0; fi
+    command -v loginctl >/dev/null && loginctl suspend && return 0
+    [ -d /run/systemd/system ] && command -v systemctl >/dev/null && systemctl suspend && return 0
+    local p=""
+    command -v doas >/dev/null && p=doas
+    [ -z "$p" ] && command -v sudo >/dev/null && p=sudo
+    if [ -n "$p" ]; then
+        command -v zzz >/dev/null && $p -n zzz && return 0
+        command -v pm-suspend >/dev/null && $p -n pm-suspend && return 0
+    fi
+    notify-send -u critical "Battery ${CAP}%, no suspend method found"
+    return 1
+}
+
+last=0
+[ -r "$STATE_FILE" ] && last=$(cat "$STATE_FILE" 2>/dev/null)
+case "$last" in 0|1|2|3) ;; *) last=0;; esac
+
+while :; do
+    total=0; n=0; st=""
+    for d in "${bats[@]}"; do
+        c=$(cat "$d/capacity" 2>/dev/null) || continue
+        s=$(cat "$d/status" 2>/dev/null) || continue
+        total=$((total + c)); n=$((n + 1))
+        [ -z "$st" ] && st="$s"
+        [ "$s" = Discharging ] && st=Discharging
+    done
+    if [ "$n" -gt 0 ]; then
+        cap=$((total / n))
+        if [ "$st" = Charging ] || [ "$st" = Full ] || [ "$cap" -gt "$LOW" ]; then
+            if [ "$last" -ne 0 ]; then last=0; printf '%s\n' "$last" > "$STATE_FILE"; fi
+        else
+            level=0
+            [ "$cap" -le "$LOW" ] && level=1
+            [ "$cap" -le "$CRITICAL" ] && level=2
+            [ "$cap" -le "$ACT" ] && level=3
+            if [ "$level" -gt "$last" ]; then
+                case "$level" in
+                    1) notify-send -u critical "Battery low: $cap%";;
+                    2) notify-send -u critical "Battery critical: $cap%";;
+                    3) CAP=$cap; do_suspend;;
+                esac
+                last=$level
+                printf '%s\n' "$last" > "$STATE_FILE"
+            fi
+        fi
+    fi
+    [ "${POLL_ONCE:-0}" = 1 ] && exit 0   # test hook
+    sleep "$INTERVAL"
+done

@@ -1,0 +1,5 @@
+# super+shift+m; {t,s,n,p,space}
+# 	~/.local/bin/mpd_key.sh {toggle,stop,next,prev,playlist}
+
+super+shift+m; {t,s,n,p,space,a,x}
+	~/.local/bin/mpd_key.sh {toggle,stop,next,prev,album,artist,all}

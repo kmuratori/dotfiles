@@ -1,0 +1,33 @@
+set selection-clipboard clipboard
+set font "Bitstream Vera Sans Mono 13"
+set adjust-open "width"
+set incremental-search true
+set show-directories false
+set statusbar-home-tilde false
+set statusbar-page-percent false
+set window-title-basename true
+set recolor true
+set selection-notification false
+set database sqlite
+set guioptions ''
+
+# set recolor-darkcolor  "#0a0810"   # black → background
+# set recolor-lightcolor "#a89bc5"   # white → text
+# set recolor-keephue    true        # preserve original hues
+
+set default-bg               "#0a0810"
+set default-fg               "#a89bc5"
+set statusbar-bg             "#1a1226"
+set statusbar-fg             "#a89bc5"
+set inputbar-bg              "#0a0810"
+set inputbar-fg              "#ede9f8"
+set completion-bg            "#1a1226"
+set completion-fg            "#a89bc5"
+set completion-highlight-bg  "#723EC3"
+set completion-highlight-fg  "#ede9f8"
+set notification-bg          "#1a1226"
+set notification-fg          "#a89bc5"
+set notification-error-bg    "#e05c7a"
+set notification-error-fg    "#0a0810"
+set notification-warning-bg  "#c9a0dc"
+set notification-warning-fg  "#0a0810"

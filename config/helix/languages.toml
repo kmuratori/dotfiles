@@ -1,0 +1,53 @@
+# [[language]]
+# name = "c"
+# scope = "source.c"
+# injection-regex = "c"
+# file-types = ["c", "h"]
+# indent = { tab-width = 2, unit = "  " }
+# formatter = { command = "clang-format" , args = [ "--style=LLVM" ] }
+# language-servers = [ "clangd" ]
+
+[[language]]
+name = "c"
+scope = "source.c"
+injection-regex = "c"
+file-types = ["c", "h"]
+indent = { tab-width = 2, unit = "  " }
+formatter = { command = "indent", args = [ "-st", "-bap", "-linux" ]}
+language-servers = ["clangd"]
+
+[[language]]
+name = "cpp"
+scope = "source.cpp"
+injection-regex = "cpp"
+file-types = ["cpp", "cxx", "cc", "hpp", "hxx", "hh"]
+indent = { tab-width = 2, unit = "  " }
+formatter = { command = "clang-format", args = [ "--style=LLVM" ] }
+language-servers = [ "clangd" ]
+
+[[language]]
+name = "java"
+scope = "source.java"
+injection-regex = "java"
+file-types = [ "java", "jar" ]
+indent = { tab-width = 2, unit = "  " }
+# formatter = { command = "clang-format", args = [ "--style=LLVM" ] }
+formatter = { command = "clang-format" }
+language-servers = [ "jdtls" ]
+auto-format = true
+
+[[language]]
+name = "python"
+scope = "source.py"
+file-types = ["py"]
+indent = { tab-width = 4, unit = "  " }
+language-servers = [ "ruff" ]
+formatter = { command = "ruff", args = ["format", "-"] }
+auto-format = true
+
+[language-server.gopls]
+command = "gopls"
+args = ["-logfile=/tmp/gopls.log",  "serve"]
+
+[language-server.gopls.config]
+"ui.diagnostic.staticcheck" = true

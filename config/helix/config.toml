@@ -1,0 +1,131 @@
+# theme = "rose_pine"
+# theme = "dark_plus"
+# theme = "t_dark_plus"
+# theme = "autumn"
+theme = "amberwood"
+
+[editor]
+scrolloff = 5
+mouse = true
+default-yank-register = "+"
+middle-click-paste = true
+scroll-lines = 3
+shell = [ "bash", "-c" ]
+line-number = "relative"
+cursorline = true
+cursorcolumn = false
+continue-comments = true
+gutters = ["diagnostics", "spacer", "line-numbers", "spacer", "diff"]
+# gutters = []
+auto-completion = true
+path-completion = true
+auto-format = true
+idle-timeout = 250
+completion-timeout = 250
+preview-completion-insert = true
+completion-trigger-len = 2
+completion-replace = false
+auto-info = true
+true-color = false
+undercurl = false
+rulers = []
+bufferline = "always"
+color-modes = true
+text-width = 80
+workspace-lsp-roots = []
+default-line-ending = "native"
+insert-final-newline = false
+popup-border = "none"
+indent-heuristic = "tree-sitter" # hybrid
+jump-label-alphabet = "abcdefghijklmnopqrstuvwxyz"
+clipboard-provider = "x-clip"
+
+[editor.statusline]
+left = ["mode", "separator", "version-control", "file-base-name", "diagnostics"]
+center = []
+right = ["file-type", "separator", "position"]
+separator = " "
+mode.normal = "N"
+mode.insert = "I"
+mode.select = "S"
+
+[editor.lsp]
+enable = true
+display-messages = true
+display-progress-messages = true
+auto-signature-help = true
+display-inlay-hints = false
+display-signature-help-docs = false
+snippets = true
+
+[editor.cursor-shape]
+normal = "block"
+insert = "bar"
+select = "underline"
+
+[editor.file-picker]
+hidden = true
+follow-symlinks = true
+deduplicate-links = false
+parents = false
+ignore = true
+git-ignore = true
+git-global = true
+git-exclude = true
+max-depth = 5
+
+[editor.auto-save]
+focus-lost = false
+after-delay.enable = true
+after-delay.timeout = 1000
+
+[editor.search]
+smart-case = true
+wrap-around = true
+
+[editor.indent-guides]
+render = true
+character = "|"
+skip-levels = 0
+
+[editor.smart-tab]
+enable = true
+supersede-menu = false
+
+[keys.normal]
+"$" = "goto_line_end"
+0 = "goto_line_start"
+J = [ "extend_to_line_bounds", "delete_selection", "paste_after" ]
+K = [ "extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before" ]
+w = "move_next_word_end"
+W = "move_prev_word_end"
+x = "select_line_below"
+X = "select_line_above"
+tab = "move_next_word_end"
+"=" = ":format"
+
+[keys.normal.b]
+b = "buffer_picker"
+c = ":buffer-close"
+n = ":buffer-next"
+p = ":buffer-previous"
+
+[keys.normal.f]
+f = "file_picker"
+
+[keys.normal.g]
+b = { c = "toggle_block_comments" }
+t = ":yank-diagnostic"
+c = "toggle_comments"
+
+[keys.insert]
+tab = "insert_tab"
+
+[keys.select]
+"$" = "goto_line_end"
+0 = "goto_line_start"
+w = "extend_next_word_end"
+W = "extend_prev_word_end"
+tab = "extend_next_word_end"
+# TEST
+"C-r" = ":pipe /usr/bin/bash &"

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+export LIFEOPS_LAN="false"
+
+cd /home/karim/workspace/projects/lifeops
+source .venv/bin/activate
+exec python cli.py "$@"

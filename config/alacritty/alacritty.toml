@@ -1,0 +1,58 @@
+[general]
+import = ["themes/i3-dark.toml"]
+
+[window]
+padding = { x = 5, y = 5 }
+decorations = "None"
+opacity = 0.85
+blur = true
+startup_mode = "Windowed"
+title = "Alacritty"
+dynamic_title = true
+
+[scrolling]
+history = 5000
+multiplier = 3
+
+[font]
+size = 10.0
+
+[font.normal]
+family = "Bitstream Vera Sans Mono"
+style  = "Regular"
+# family = "Courier"
+# style  = "Bold"
+
+[font.bold]
+family = "Bitstream Vera Sans Mono"
+# family = "Courier"
+style  = "Bold"
+
+[font.italic]
+family = "Bitstream Vera Sans Mono"
+# family = "Courier"
+style  = "Italic"
+
+[font.bold_italic]
+family = "Bitstream Vera Sans Mono"
+# family = "Courier"
+style  = "Bold Italic"
+
+[colors]
+draw_bold_text_with_bright_colors = true
+
+[bell]
+animation = "EaseOutExpo"
+duration  = 0
+
+[cursor]
+style = { shape = "Block", blinking = "On" }
+blink_interval = 600
+blink_timeout = 10
+unfocused_hollow = true
+
+[terminal]
+osc52 = "OnlyCopy"
+
+[mouse]
+hide_when_typing = true
