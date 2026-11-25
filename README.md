@@ -74,3 +74,24 @@ Detected differences:
 - `[TYPE MISMATCH]` - file/directory/symlink types differ.
 - `[CHANGED DIR]` - directory containing differences.
 - `[CHANGED FILE]` - individual file mapping containing differences.
+
+## Palette
+
+```toml
+# surfaces
+bg       = "#1f1f1f"
+surface  = "#373737"
+border   = "#454545"
+focus    = "#777777"
+
+# text
+fg       = "#ffffff"
+muted    = "#888888"
+black    = "#000000"
+
+# state
+good     = "#2FBF71"
+warn     = "#D0A050"
+warn_bg  = "#664317"
+critical = "#C94F4F"
+```
