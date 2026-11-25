@@ -60,9 +60,9 @@ cmd = "alacritty --class _htop -e htop"
 
 [[block]]
 block = "net"
-format = " $icon {$ssid|Wired} "
+format = " $icon {$ssid| Wired} "
 [[block.click]]
-button = "left"
+button = "right"
 cmd = "cmst"
 
 [[block]]
@@ -90,6 +90,7 @@ update = true
 block = "battery"
 format = " $icon $percentage "
 missing_format = ""
+interval=2
 
 [[block]]
 block = "time"

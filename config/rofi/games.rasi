@@ -1,4 +1,4 @@
-/* games.rasi — game library grid
+/* games.rasi - game library grid
  * rofi -show games -theme ~/.config/rofi/games.rasi
  */
 

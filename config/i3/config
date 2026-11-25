@@ -6,7 +6,6 @@ exec --no-startup-id   xrdb -merge ~/.config/X11/Xresources
 exec --no-startup-id   dunst
 exec --no-startup-id   ~/.fehbg
 exec --no-startup-id   picom --config ~/.config/picom/picom.conf
-exec --no-startup-id   cmst -m
 exec --no-startup-id   udiskie --tray
 exec --no-startup-id   pgrep -x pipewire >/dev/null || pipewire &
 # exec --no-startup-id pgrep -x pipewire-pulse >/dev/null || pipewire-pulse &
@@ -16,6 +15,7 @@ exec --no-startup-id   sxhkd
 # exec --no-startup-id syncthing
 exec --no-startup-id   ~/.local/bin/lifeops serve > ~/.cache/lifeops.log
 exec --no-startup-id   ~/.local/bin/battery-watch
+exec --no-startup-id   copyq --start-server
 
 # remove window titles from no stacked/tabbed windows.
 for_window [class="^.*"] border pixel 2
@@ -76,6 +76,7 @@ bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
 bindsym XF86MonBrightnessUp   exec brightnessctl set 5%+
 bindsym XF86Explorer          exec pcmanfm
 bindsym Print                 exec flameshot gui
+bindsym $mod+c                exec copyq menu
 
 # apps
 bindsym $mod+Shift+Return exec i3-sensible-terminal
@@ -88,6 +89,7 @@ bindsym $mod+b            exec boomer
 bindsym $mod+m            exec ~/.local/bin/scripts/menu.sh
 bindsym $mod+n            exec ~/.local/bin/scripts/open_notes
 # bindsym $mod+Shift+t      exec ~/.config/i3/scripts/theme-switcher.sh
+bindsym $mod+shift+g      exec "rofi -show games -theme ~/.config/rofi/games.rasi"
 bindsym $mod+g            exec chromium
 
 # Window rules

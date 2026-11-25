@@ -1,4 +1,4 @@
-/* config.rasi — main launcher */
+/* config.rasi - main launcher */
 
 configuration {
     modi:                "drun,run,window";
@@ -60,6 +60,8 @@ entry {
     placeholder:       "Search…";
     placeholder-color: @muted;
     cursor:            text;
+    text-color:        @fg;
+    highlight:         #ffffff;
 }
 
 listview {
