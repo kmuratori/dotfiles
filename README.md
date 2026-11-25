@@ -48,3 +48,23 @@ Edit `DIRS` in `configure.py`. Defaults:
 
 Files are copied using `cp -a`; there are no symlinks. Existing destination
 files are updated, and unrelated destination files are left untouched.
+
+## Check installed configuration
+
+Compare repository files against their installed copies without modifying
+anything.
+
+```sh
+./check.py    # show differences
+./check.py -v # also show directories without changes
+./check.py -v | grep -v EXTRA
+````
+
+Detected differences:
+
+- `[CHANGED]` - file contents or symlink target differ.
+- `[MISSING]` - file or directory is absent from the installation.
+- `[EXTRA]` - installed file or directory no longer exists in the repository.
+- `[TYPE MISMATCH]` - file/directory/symlink types differ.
+- `[CHANGED DIR]` - directory containing differences.
+
