@@ -95,3 +95,9 @@ warn     = "#D0A050"
 warn_bg  = "#664317"
 critical = "#C94F4F"
 ```
+
+## Gtk/Qt themes
+
+- GTK: [WhiteSur-Dark](https://github.com/vinceliuice/WhiteSur-gtk-theme)
+- Qt: [Kvantum/KvFlat](https://github.com/tsujan/Kvantum/tree/master/Kvantum/themes/kvthemes/KvFlat)
+- Icons: [Papirus-Dark](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme)
